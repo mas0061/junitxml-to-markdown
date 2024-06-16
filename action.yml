@@ -1,0 +1,30 @@
+name: junitxml-to-markdown
+
+description: convert JUnit XML to Markdown
+
+inputs:
+  junitxml-path:
+    description: JUnit XML path(Blob)
+    required: true
+    default: ''
+
+outputs:
+  markdown-path:
+    description: Markdown file path
+    value: ${{ steps.to-markdown.outputs.markdown-path }}
+
+runs:
+  using: composite
+  steps:
+    - uses: oven-sh/setup-bun@f4d14e03ff726c06358e5557344e1da148b56cf7 # v1.2.2
+      with:
+        bun-version: 1
+    - run: bun install
+      shell: bash
+    - id: to-markdown
+      run: |
+        bun run index.ts ${JUNITXML_PATH}
+        echo "markdown-path=$(pwd)/junitxml.md" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        JUNITXML_PATH: ${{ inputs.junitxml-path }}
