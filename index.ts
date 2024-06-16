@@ -1,5 +1,5 @@
 import { Glob } from 'bun'
-import { parse, type TestSuite,type TestSuites } from 'junit2json'
+import { type TestSuite, type TestSuites, parse } from 'junit2json'
 
 const convertTestsuites = (testsuite: TestSuites) => {
   if (!testsuite.tests || !testsuite.failures || !testsuite.errors) {
@@ -18,8 +18,8 @@ const convertTestsuite = (testsuite: TestSuite) => {
 }
 
 const processResultData = (results: TestSuites | TestSuite) => {
-  // type TestSuites
   if ('testsuite' in results) {
+    // type TestSuites
     const testSuitesMd = convertTestsuites(results)
     if (testSuitesMd.length > 0) {
       markdownString += MARKDOWN_HEADER + testSuitesMd
@@ -33,8 +33,8 @@ const processResultData = (results: TestSuites | TestSuite) => {
         markdownString += MARKDOWN_HEADER + convertTestsuite(testsuite)
       }
     }
-  // type TestSuite
   } else if ('testcase' in results) {
+    // type TestSuite
     const testSuitesMd = convertTestsuite(results)
     if (testSuitesMd.length > 0) {
       markdownString += MARKDOWN_HEADER + testSuitesMd
@@ -52,7 +52,8 @@ if (args.length < 1 || args[0].length < 1) {
 const junitxml_path = args[0]
 const glob = new Glob(junitxml_path)
 
-const MARKDOWN_HEADER = '| Testsuite | :white_check_mark: Success | :fire: Failure | :x: Error | :fast_forward: Skip | **Total** |\n| --------- | ------- | ------- | ----- | ---- | ----- |\n'
+const MARKDOWN_HEADER =
+  '| Testsuite | :white_check_mark: Success | :fire: Failure | :x: Error | :fast_forward: Skip | **Total** |\n| --------- | ------- | ------- | ----- | ---- | ----- |\n'
 let markdownString = '## Test results\n\n'
 
 for await (const file of glob.scan('.')) {
