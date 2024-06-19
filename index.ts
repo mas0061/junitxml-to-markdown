@@ -50,6 +50,7 @@ if (args.length < 1 || args[0].length < 1) {
 }
 
 const junitxml_path = args[0]
+console.log(`junitxml_path: ${junitxml_path}`)
 const glob = new Glob(junitxml_path)
 
 const MARKDOWN_HEADER =
