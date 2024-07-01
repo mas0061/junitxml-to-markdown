@@ -2,7 +2,7 @@ import { Glob } from 'bun'
 import { type TestSuite, type TestSuites, parse } from 'junit2json'
 
 const convertTestsuites = (testsuite: TestSuites) => {
-  if (!testsuite.tests || !testsuite.failures || !testsuite.errors) {
+  if (testsuite.tests === undefined || testsuite.failures === undefined || testsuite.errors === undefined) {
     return ''
   }
   const success = testsuite.tests - testsuite.failures - testsuite.errors
@@ -10,7 +10,13 @@ const convertTestsuites = (testsuite: TestSuites) => {
 }
 
 const convertTestsuite = (testsuite: TestSuite) => {
-  if (!testsuite.tests || !testsuite.failures || !testsuite.errors || !testsuite.skipped) {
+  if (
+    testsuite.tests === undefined ||
+    testsuite.failures === undefined ||
+    testsuite.errors === undefined ||
+    testsuite.skipped === undefined
+  ) {
+    console.log('nothing any value')
     return ''
   }
   const success = testsuite.tests - testsuite.failures - testsuite.errors - testsuite.skipped
@@ -18,6 +24,7 @@ const convertTestsuite = (testsuite: TestSuite) => {
 }
 
 const processResultData = (results: TestSuites | TestSuite) => {
+  console.log(results)
   if ('testsuite' in results) {
     // type TestSuites
     const testSuitesMd = convertTestsuites(results)

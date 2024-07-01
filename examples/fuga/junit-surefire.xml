@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Tests.Authentication" time="9.076816" tests="4" errors="0" skipped="0" failures="1">
+    <testcase name="testCase7" classname="Tests.Authentication" time="2.508" />
+    <testcase name="testCase8" classname="Tests.Authentication" time="1.230816" />
+    <testcase name="testCase9" classname="Tests.Authentication" time="0.982">
+        <failure message="Assertion error message" type="AssertionError">
+            <!-- Call stack printed here -->
+        </failure>
+    </testcase>
+</testsuite>
