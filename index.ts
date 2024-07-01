@@ -16,7 +16,7 @@ const convertTestsuite = (testsuite: TestSuite) => {
     testsuite.errors === undefined ||
     testsuite.skipped === undefined
   ) {
-    console.log('nothing any value')
+    console.log('  nothing any value')
     return ''
   }
   const success = testsuite.tests - testsuite.failures - testsuite.errors - testsuite.skipped
@@ -24,7 +24,6 @@ const convertTestsuite = (testsuite: TestSuite) => {
 }
 
 const processResultData = (results: TestSuites | TestSuite) => {
-  console.log(results)
   if ('testsuite' in results) {
     // type TestSuites
     const testSuitesMd = convertTestsuites(results)
