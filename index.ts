@@ -1,4 +1,3 @@
-import path from 'node:path'
 import { Glob } from 'bun'
 import { type TestSuite, type TestSuites, parse } from 'junit2json'
 
@@ -16,8 +15,8 @@ const convertTestsuites = (testsuite: TestSuites): string => {
     return ''
   }
   const success = testsuite.tests - testsuite.failures - testsuite.errors
-  const pathName = path.dirname(testsuite.name) === '.' ? '' : path.dirname(testsuite.name)
-  const name = `<details><sumarry>${path.basename(testsuite.name)}</summary>${pathName}</details>`
+  const { packageName, className } = separatePackages(testsuite.name)
+  const name = `<details><sumarry>${className}</summary>${packageName}</details>`
   return `| ${name} | ${success} | ${testsuite.failures} | ${testsuite.errors} | - | ${testsuite.tests} |\n\n`
 }
 
@@ -33,8 +32,8 @@ const convertTestsuite = (testsuite: TestSuite): string => {
     return ''
   }
   const success = testsuite.tests - testsuite.failures - testsuite.errors - testsuite.skipped
-  const pathName = path.dirname(testsuite.name) === '.' ? '' : path.dirname(testsuite.name)
-  const name = `<details><sumarry>${path.basename(testsuite.name)}</summary>${pathName}</details>`
+  const { packageName, className } = separatePackages(testsuite.name)
+  const name = `<details><sumarry>${className}</summary>${packageName}</details>`
   return `| ${name} | ${success} | ${testsuite.failures} | ${testsuite.errors} | ${testsuite.skipped} | ${testsuite.tests} |\n\n`
 }
 
@@ -64,6 +63,16 @@ const processResultData = (results: TestSuites | TestSuite): string => {
   }
 
   return resultMarkdown
+}
+
+const separatePackages = (classFqdn: string): { packageName: string; className: string } => {
+  const parts = classFqdn.split('.')
+  const className = (parts.pop() !== undefined ? parts.pop() : '') as string
+  const packageName = parts.join('.')
+  return {
+    packageName: packageName,
+    className: className,
+  }
 }
 
 const args = process.argv.slice(2)
