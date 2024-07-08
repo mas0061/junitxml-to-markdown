@@ -16,7 +16,7 @@ const convertTestsuites = (testsuite: TestSuites): string => {
   }
   const success = testsuite.tests - testsuite.failures - testsuite.errors
   const { packageName, className } = separatePackages(testsuite.name)
-  const name = `<details><sumarry>${className}</summary>${packageName}</details>`
+  const name = `<details><summary>${className}</summary>${packageName}</details>`
   return `| ${name} | ${success} | ${testsuite.failures} | ${testsuite.errors} | - | ${testsuite.tests} |\n\n`
 }
 
@@ -33,7 +33,7 @@ const convertTestsuite = (testsuite: TestSuite): string => {
   }
   const success = testsuite.tests - testsuite.failures - testsuite.errors - testsuite.skipped
   const { packageName, className } = separatePackages(testsuite.name)
-  const name = `<details><sumarry>${className}</summary>${packageName}</details>`
+  const name = `<details><summary>${className}</summary>${packageName}</details>`
   return `| ${name} | ${success} | ${testsuite.failures} | ${testsuite.errors} | ${testsuite.skipped} | ${testsuite.tests} |\n\n`
 }
 
