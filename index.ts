@@ -1,5 +1,5 @@
 import { Glob } from 'bun'
-import { type TestSuite, type TestSuites, parse } from 'junit2json'
+import { parse, type TestSuite, type TestSuites } from 'junit2json'
 
 const MARKDOWN_HEADER =
   '| Testsuite | :white_check_mark: Success | :fire: Failure | :x: Error | :fast_forward: Skip | **Total** |\n| --------- | ------- | ------- | ----- | ---- | ----- |\n'
