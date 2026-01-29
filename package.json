@@ -10,7 +10,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@actions/core": "2.0.2",
+    "@actions/core": "3.0.0",
     "junit2json": "3.2.0"
   }
 }
